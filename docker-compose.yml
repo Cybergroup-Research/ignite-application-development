@@ -1,20 +1,20 @@
 version: "3.9"
 services:
-  postgres:
+  ignite_local_postgres:
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-  ignite:
+  ignite_local_app:
     image: cybergroupignite/runtime:v2.0.0
     ports:
       - "1881:1881"
     environment:
       IGNITE_EDITOR_API_SECRET: "<Your Ignite Secret key>"
-      DATABASE_URL: "postgres://admin:admin@[postgres]:5432/postgres"
+      DATABASE_URL: "postgres://admin:admin@[ignite_local_postgres]:5432/postgres"
       DB_SSL_OPTION: "false" 
       START_MODE: "PROJECT"
       PORT: "1881"
     depends_on:
-      - postgres
+      - ignite_local_postgres
